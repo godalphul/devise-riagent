@@ -1,0 +1,9 @@
+class <%= class_name %> <%= parent? ? "#{options[:parent].classify}" : "" %>
+  include Riagent::ActiveDocument
+<% attributes.reject(&:reference?).each do |attribute| -%>
+  attribute :<%= attribute.name %><%= ", type: #{attribute.type_class}" unless attribute.type_class == 'any' %><%= "\n  " + index_fragment if index_fragment = index_fragment(attribute.name) %>
+<% end -%>
+
+<%= timestamp_statements if timestamps? -%>
+
+end
